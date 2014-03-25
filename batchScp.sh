@@ -13,7 +13,7 @@ SIZE=$(ssh $HOST stat --printf=%s $FILE)
 MD5SUM=$(ssh $HOST md5sum $FILE | cut -d" " -f 1)
 [ "$SIZE" -a "$MD5SUM" ] || { echo "File '$FILE' is missing or could not use stat/md5sum" >&2; exit 1; }
 
-echo "Downloading $FILE long $SIZE bytes ($[$SIZE/1024/1024] MB) from $HOST in $LEVEL ssh connections, destination dir is $DEST_DIR"
+echo "Downloading $FILE long $SIZE bytes ($[$SIZE/1024/1024] MB) from $HOST in at most $LEVEL ssh connections, destination dir is $DEST_DIR"
 
 [ -e "$LOCAL_FILE" -o -e "$LOCAL_FILE.0.tmp" ] && { echo "File $LOCAL_FILE or $LOCAL_FILE.0.tmp already exist, exiting" >&2; exit 1; }
 
